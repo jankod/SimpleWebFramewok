@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+
+        function getPageID() {
+            return "$pageId";
+        }
+
+        function getCommands() {
+            return  $commandJs;
+        }
+
+    </script>
+
+    <script src="jquery-3.4.1.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+    $bodyHtml
+</body>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        console.log("Page id je: " + getPageID());
+        getCommands().forEach(function (command) {
+            console.log("Command", command);
+            if (command.eventType === "click") {
+                $("#" + command.elementId).on('click', function (event) {
+                    console.log("Event je ", event);
+                });
+            }
+        });
+
+    });
+
+
+</script>
+
+</html>
