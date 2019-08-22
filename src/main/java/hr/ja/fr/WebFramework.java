@@ -72,7 +72,7 @@ public class WebFramework {
 
 				String body = req.body();
 				log.debug("body {}", body);
-				log.debug("Dobio ajax, pageId {} elementId {}", pageId, elementId);
+//				log.debug("Dobio ajax, pageId {} elementId {}", pageId, elementId);
 
 				ServerSession sess = sessionManager.getSession(req);
 				ServerPage page = sess.getPage(pageId);
