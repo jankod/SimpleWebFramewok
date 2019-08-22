@@ -8,6 +8,7 @@
             return "$pageId";
         }
 
+
         function getCommands() {
             return  $commandJs;
         }
@@ -25,16 +26,57 @@
 
     $(document).ready(function () {
         console.log("Page id je: " + getPageID());
-        getCommands().forEach(function (command) {
-            console.log("Command", command);
-            if (command.eventType === "click") {
+        runCommands(getCommands());
+    });
+
+
+    /**
+     *
+     * String elementId;
+     EventType eventType;
+     String listenerId;
+     String html;
+     *  @param {Array.<{elementId: String, eventType: String, listenerId: String, html: String}>}  commands
+     */
+    function runCommands(commands) {
+        commands.forEach(command => {
+            if (command.eventType === "CLICK") {
                 $("#" + command.elementId).on('click', function (event) {
                     console.log("Event je ", event);
+                    sendToServer({'event': 'event neki'}, getPageID(), command.elementId, command.listenerId);
                 });
+                return;
+            }
+
+            if (command.eventType === "TAG_ADD") {
+                $("#" + command.elementId).append(command.html);
+                return;
             }
         });
 
-    });
+
+    }
+
+    function sendToServer(data, pageId, elementId, listenerId) {
+        $.ajax({
+            type: 'post',
+            url: '/ajax',
+            data: data,
+            headers: {
+                "pageId": pageId,
+                "elementId": elementId,
+                "listenerId": listenerId
+            },
+            error: function (data) {
+                console.debug(data);
+            },
+            success: function (response) {
+                const commands = JSON.parse(response);
+                console.log("Commands ", commands);
+                runCommands(commands);
+            }
+        });
+    }
 
 
 </script>

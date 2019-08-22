@@ -38,7 +38,7 @@ public class WebFramework {
 			return instance;
 		});
 		List<TagListenerPair> tagListeners = ClickUtil.getTagListeners();
-		log.debug("nassao {} listenera", tagListeners.size());
+//		log.debug("nassao {} listenera", tagListeners.size());
 		ServerPage serverPage = new ServerPage(page, new ArrayList<>(tagListeners));
 		ClickUtil.removeTagListeners();
 
@@ -66,8 +66,21 @@ public class WebFramework {
 			init();
 
 			Spark.post("/ajax", (req, res) -> {
-				log.debug("Dobio ajax");
-				return "";
+				String pageId = req.headers("pageId");
+				String elementId = req.headers("elementId");
+				String listenerId = req.headers("listenerId");
+
+				String body = req.body();
+				log.debug("body {}", body);
+				log.debug("Dobio ajax, pageId {} elementId {}", pageId, elementId);
+
+				ServerSession sess = sessionManager.getSession(req);
+				ServerPage page = sess.getPage(pageId);
+				page.callEvenetListener(elementId, listenerId, body);
+				String json = TagUtil.getCommandsJson();
+				TagUtil.getCommands().clear();
+
+				return json;
 			});
 
 			for (Class<? extends Page> pageClass : pages) {

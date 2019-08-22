@@ -11,9 +11,9 @@ public class ClickUtil {
 
 	private static List<TagListenerPair> tagListeners = new ArrayList<>();
 
-	public static void addListener(MyTag myTag, TagEventListener l) {
-		log.debug("tag {} listene", myTag.getClass().getSimpleName());
-		tagListeners.add(new TagListenerPair(myTag, l));
+	public static void addListener(MyTag myTag, TagEventListener listener) {
+		log.debug("tag {} listener", myTag.getClass().getSimpleName());
+		tagListeners.add(new TagListenerPair(myTag, listener));
 	}
 
 	public static <T extends Page> T createPageCatchListeners(Callable<T> c) {

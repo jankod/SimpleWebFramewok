@@ -7,7 +7,6 @@ import java.util.Map;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @NoArgsConstructor
 public class ServerSession implements Serializable {
@@ -17,10 +16,10 @@ public class ServerSession implements Serializable {
 	private Map<String, ServerPage> pages = new HashMap<>();
 
 	private String sessionId;
-	
+
 	public ServerSession(String sessionId) {
 		this.sessionId = sessionId;
-	
+
 	}
 
 	public void addPage(ServerPage up) {
@@ -28,5 +27,8 @@ public class ServerSession implements Serializable {
 		pages.put(up.getPage().getPageId(), up);
 	}
 
-}
+	public ServerPage getPage(String pageId) {
+		return pages.get(pageId);
+	}
 
+}

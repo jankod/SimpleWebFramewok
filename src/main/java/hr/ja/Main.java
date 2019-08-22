@@ -24,12 +24,14 @@ class Page1 extends Page {
 	private String value = "prvo";
 
 	public Page1() {
-		add(new MyTag("div", "ovo je div neki"));
+		MyTag myTag = new MyTag("div", "ovo je div neki");
+		add(myTag);
 //		log.debug("imam ID " + getPageId());
 
 		Button b = new Button("ovo je button");
 		b.addClickListener(e -> {
-			log.debug("click je bio: {} ", e);
+			myTag.add(new MyTag("br", "novi tag"));
+			log.debug("click je bio: {} ", e.getSource());
 		});
 		add(b);
 

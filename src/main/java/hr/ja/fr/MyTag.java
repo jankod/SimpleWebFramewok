@@ -31,16 +31,19 @@ public class MyTag {
 
 	public MyTag(String name) {
 		element = new MyElement(name);
+		enshureId();
 	}
 
 	public MyTag(String name, String text) {
 		this(name);
 		element.appendText(text);
+		
 	}
 
 	public void add(MyTag tag) {
 		childTags.add(tag);
 		tag.setParrent(this);
+		TagUtil.add(this, tag);
 	}
 
 	String enshureId() {
