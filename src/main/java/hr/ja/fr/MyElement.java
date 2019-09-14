@@ -9,7 +9,7 @@ public class MyElement extends Element {
 		super(tag);
 	}
 
-	public void add(MyElement element) {
-		this.addChildren(element);
+	public void add(MyTag element) {
+		this.addChildren(element.getElement());
 	}
 }

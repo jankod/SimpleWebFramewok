@@ -21,6 +21,22 @@ public class TagUtil {
 		commands.add(command);
 	}
 
+	public static void append(String html, MyTag myTag) {
+
+	}
+	
+	public static void text(String text, MyTag myTag) {
+		
+	}
+
+	public static void addToBody(MyTag tag) {
+		CommandJs command = new CommandJs();
+		command.elementId = "body";
+		command.eventType = CommandJs.EventType.TAG_ADD;
+		command.html = tag.toString();
+		commands.add(command);
+	}
+
 	public static List<CommandJs> getCommands() {
 		return commands;
 	}
@@ -35,5 +51,7 @@ public class TagUtil {
 			return "=??=";
 		}
 	}
+
+	
 
 }

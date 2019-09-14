@@ -20,5 +20,6 @@ public abstract class Page {
 
 	public void add(MyTag myTag) {
 		tags.add(myTag);
+		TagUtil.addToBody(myTag);
 	}
 }

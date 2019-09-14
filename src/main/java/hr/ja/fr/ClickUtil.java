@@ -12,7 +12,7 @@ public class ClickUtil {
 	private static List<TagListenerPair> tagListeners = new ArrayList<>();
 
 	public static void addListener(MyTag myTag, TagEventListener listener) {
-		log.debug("tag {} listener", myTag.getClass().getSimpleName());
+		log.debug("tagID {} listener", myTag.getId());
 		tagListeners.add(new TagListenerPair(myTag, listener));
 	}
 

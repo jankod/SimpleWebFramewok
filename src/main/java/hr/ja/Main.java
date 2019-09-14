@@ -31,6 +31,8 @@ class Page1 extends Page {
 		Button b = new Button("ovo je button");
 		b.addClickListener(e -> {
 			myTag.add(new MyTag("br", "novi tag"));
+			add(new MyTag("article", "Ovo je article"));
+			
 			log.debug("click je bio: {} ", e.getSource());
 		});
 		add(b);

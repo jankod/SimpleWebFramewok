@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page</title>
+    <script src="jquery-3.4.1.js"></script>
+</head>
+<body>
+
+
+<script>
+    class EL {
+        elements;
+
+        constructor() {
+            this.elements = new Map();
+        }
+
+        createElement(elId, html) {
+            let el = $(html);
+            this.elements.set(elId, el);
+        }
+
+        /**
+         *
+         * @param elId string
+         * @returns {JQuery}
+         */
+        getEl(elId) {
+            let el = this.elements.get(elId);
+            if (el === undefined) {
+                throw Error("Not find element " + elId);
+            }
+            return el;
+        }
+
+        appendChild(elId, elIdChild) {
+            this.getEl(elId).append(this.getEl(elIdChild));
+        }
+
+        appendToBody(elId) {
+            this.getEl(elId).appendTo('body');
+        }
+
+        appendText(elId, text) {
+            this.getEl(elId).append(document.createTextNode(text));
+        }
+
+        addClass(elId, className) {
+            this.getEl(elId).addClass(className);
+        }
+    }
+
+    let man = new EL();
+</script>
+
+<script>
+
+    man.createElement('1', `<button id="1"></button>`);
+    man.appendText('1', `janko`);
+    man.addClass('1', 'btn')
+    man.createElement('2', `<div id="2"></div>`);
+    man.appendText('2', `Ovo je neki div`);
+    man.createElement('3', `<div id="3"></div>`);
+    man.appendText('3', `Ovo je div 2`);
+    man.appendChild('2', `3`);
+    man.appendToBody('1');
+    man.appendToBody('2');
+
+
+</script>
+</body>
+</html>
