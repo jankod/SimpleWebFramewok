@@ -1,4 +1,4 @@
-package hr.ja.fr;
+package hr.ja.fr.events;
 
 public interface ComponentEventListener<T> {
 

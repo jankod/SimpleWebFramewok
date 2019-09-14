@@ -24,10 +24,12 @@
 <script type="text/javascript">
 
 
-    $(document).ready(function () {
+    $(function () {
+        let e = new EL(getPageID());
         console.log("Page id je: " + getPageID());
-        runCommands(getCommands());
+        e.runCommands(getCommands());
     });
+
 
 
     /**
@@ -38,44 +40,7 @@
      String html;
      *  @param {Array.<{elementId: String, eventType: String, listenerId: String, html: String}>}  commands
      */
-    function runCommands(commands) {
-        commands.forEach(command => {
-            if (command.eventType === "CLICK") {
-                $("#" + command.elementId).on('click', function (event) {
-                    console.log("Event je ", event);
-                    sendToServer({'event': 'event neki'}, getPageID(), command.elementId, command.listenerId);
-                });
-                return;
-            }
-
-            if (command.eventType === "TAG_ADD") {
-                $("#" + command.elementId).append(command.html);
-                return;
-            }
-        });
-
-
-    }
-
-    function sendToServer(data, pageId, elementId, listenerId) {
-        $.ajax({
-            type: 'post',
-            url: '/ajax',
-            data: data,
-            headers: {
-                "pageId": pageId,
-                "elementId": elementId,
-                "listenerId": listenerId
-            },
-            error: function (data) {
-                console.debug(data);
-            },
-            success: function (response) {
-                const commands = JSON.parse(response);
-                console.log("Commands ", commands);
-                runCommands(commands);
-            }
-        });
+    function runCommands1(commands) {
     }
 
 

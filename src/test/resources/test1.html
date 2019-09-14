@@ -49,20 +49,23 @@
         addClass(elId, className) {
             this.getEl(elId).addClass(className);
         }
+
+
     }
 
     let man = new EL();
+
 </script>
 
 <script>
 
-    man.createElement('1', `<button id="1"></button>`);
-    man.appendText('1', `janko`);
+    man.createElement('1', `hr.ja.test.newelement.Button@2f7c2f4f`);
+    man.text('1', `janko`)
     man.addClass('1', 'btn')
-    man.createElement('2', `<div id="2"></div>`);
-    man.appendText('2', `Ovo je neki div`);
-    man.createElement('3', `<div id="3"></div>`);
-    man.appendText('3', `Ovo je div 2`);
+    man.createElement('2', `hr.ja.test.newelement.Div@49b0b76`);
+    man.text('2', `Ovo je neki div`);
+    man.createElement('3', `hr.ja.test.newelement.Div@769f71a9`);
+    man.text('3', `Ovo je div 2`);
     man.appendChild('2', `3`);
     man.appendToBody('1');
     man.appendToBody('2');

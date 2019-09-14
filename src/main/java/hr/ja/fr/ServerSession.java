@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +16,7 @@ public class ServerSession implements Serializable {
 
 	private Map<String, ServerPage> pages = new HashMap<>();
 
+	@Getter
 	private String sessionId;
 
 	public ServerSession(String sessionId) {
