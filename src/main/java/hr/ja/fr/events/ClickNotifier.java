@@ -8,7 +8,7 @@ public interface ClickNotifier<T extends EL> {
 
 	public default void addClickListener(ButtonClickListener<T> listener) {
 		EL element = (EL) this;
-		EventUtil.addListener(element, (EventListener) listener, EventType.CLICK);
+		EventCommands.addListener(element, (EventListener) listener, EventType.CLICK);
 	}
 
 }

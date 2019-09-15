@@ -28,15 +28,23 @@ public class ServerPage implements Serializable {
 	@Setter
 	private Page page;
 
-	private List<ElementEvent> tagListeners;
+	private List<ElementEvent> listeners;
 
 	@Getter
 	@Setter
 	private ServerSession userSession;
 
-	public ServerPage(Page page, List<ElementEvent> tagListeners) {
+	public ServerPage(Page page, List<ElementEvent> listeners) {
 		this.page = page;
-		this.tagListeners = tagListeners;
+		this.listeners = listeners;
+	}
+
+	public void addEventListeners(List<ElementEvent> newListeners) {
+		if (listeners == null) {
+			listeners = new ArrayList<ElementEvent>();
+		}
+		listeners.addAll(newListeners);
+//		log.debug("Dodajem nove listenere " + newListeners.size());
 	}
 
 	public String createCommandsJs() {
@@ -44,19 +52,19 @@ public class ServerPage implements Serializable {
 
 		List<CommandJs> commands = new ArrayList<CommandJs>();
 //		log.debug("imam commands {}", tagListeners.size());
-		for (ElementEvent elEvent : tagListeners) {
+		for (ElementEvent elEvent : listeners) {
 			CommandJs command = PageEventManager.createCommand(elEvent);
 			commands.add(command);
 		}
 		return WebUtil.toJson(commands);
 	}
 
-	public void callEvenetListener(String elementId, String listenerId, String body) {
-		if (tagListeners == null) {
+	public void callEvenetListeners(String elementId, String listenerId, String body) {
+		if (listeners == null) {
 			log.error("null je");
 			return;
 		}
-		for (ElementEvent t : tagListeners) {
+		for (ElementEvent t : listeners) {
 			if (t.getListenerId().equals(listenerId)) {
 				if (t.getEventType() == EventType.CLICK) {
 					ButtonClickListener listener = (ButtonClickListener) t.getListener();

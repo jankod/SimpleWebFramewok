@@ -8,11 +8,19 @@ import hr.ja.fr.commands.DOMCommand;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DataUtil {
+public class ElementCommands {
 
 	public static ThreadLocal<List<CommandJs>> data = ThreadLocal.withInitial(() -> {
 		return new ArrayList<CommandJs>();
 	});
+
+	public static void alert(String msg) {
+		add(new DOMCommand("alert", msg));
+	}
+
+	public static void clear() {
+		data.get().clear();
+	}
 
 	public static void newEl(EL el) {
 		// log.debug("new EL {}", el);
@@ -23,10 +31,6 @@ public class DataUtil {
 	public static void appendChild(EL el, EL child) {
 		// exec("appendChild('{}', `{}`);", el.id(), child.id());
 		add(new DOMCommand("appendChild", el.id(), child.id()));
-	}
-
-	private static void add(CommandJs c) {
-		data.get().add(c);
 	}
 
 	public static void appendToBody(EL el) {
@@ -48,5 +52,17 @@ public class DataUtil {
 		// exec("text('{}', `{}`)", el.id(), text);
 		add(new DOMCommand("text", el.id(), text));
 	}
+	public static void html(EL el, String html) {
+		add(new DOMCommand("html", el.id(), html));
+	}
+
+	private static void add(CommandJs c) {
+		data.get().add(c);
+	}
+
+	public static List<CommandJs> getCommands() {
+		return data.get();
+	}
+
 
 }

@@ -22,7 +22,11 @@ class EL {
     getEl(elId) {
         let el = this.elements.get(elId);
         if (el === undefined) {
-            throw Error("Not find element " + elId);
+            let el = $("#" + elId);
+            if (el.length !== 1)
+                throw Error("Not find element ID: " + elId);
+
+            return el;
         }
         return el;
     }
@@ -39,20 +43,32 @@ class EL {
         this.getEl(elId).append(document.createTextNode(text));
     }
 
+    text(elId, text) {
+        this.getEl(elId).text(text);
+    }
+
     addClass(elId, className) {
         this.getEl(elId).addClass(className);
     }
 
     setClickEvent(elId, listenerId) {
-        console.log("setClickEvent", elId, listenerId);
+        console.log("Command setClickEvent", elId, listenerId);
         let handler = () => {
-            console.log("this", this);
+            // console.log("this", this);
             this.sendToServer({'event': 'event neki'}, elId, listenerId);
         };
         $("#" + elId).on('click', handler);
     }
 
+    html(elId, html) {
+        this.getEl(elId).html(html);
+    }
+    alert(msg) {
+        alert(msg);
+    }
+
     sendToServer(data, elementId, listenerId) {
+        let self = this;
         $.ajax({
             type: 'post',
             url: '/page_event',
@@ -72,20 +88,27 @@ class EL {
                 }
                 const commands = JSON.parse(response);
                 console.log("Commands GOT ", commands);
-                this.runCommands(commands);
+                self.runCommands(commands);
             }
         });
     }
 
     runCommands(commands) {
         commands.forEach(command => {
-
-            console.log("event commands ", command);
+            console.log("commands ", command);
             let res = this[command.funcName].apply(this, command.args);
         });
     }
 }
 
+function runCommands2(commands) {
+    commands.forEach(command => {
+        console.log("event commands ", command);
+        let res = el[command.funcName].apply(el, command.args);
+    });
+}
+
+//let el = new EL();
 /*
 let e = new EL();
 let args = ['2', '<p>'];

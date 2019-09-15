@@ -13,7 +13,8 @@ import hr.ja.fr.Page;
 import hr.ja.fr.ServerPage;
 import hr.ja.fr.ServerSession;
 import hr.ja.fr.WebUtil;
-import hr.ja.fr.events.EventUtil;
+import hr.ja.fr.elements.ElementCommands;
+import hr.ja.fr.events.EventCommands;
 import lombok.extern.slf4j.Slf4j;
 import spark.ModelAndView;
 import spark.Request;
@@ -57,16 +58,17 @@ public class PageRenderManager {
 		Constructor<? extends Page> c = p.getConstructor();
 		c.setAccessible(true);
 		Page instance = null;
-		EventUtil.clear();
+		
+		
+		EventCommands.clear();
 		try {
 			instance = c.newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 			log.error("", e);
-
 		}
 
-		ServerPage serverPage = new ServerPage(instance, EventUtil.getEvents());
+		ServerPage serverPage = new ServerPage(instance, EventCommands.getEvents());
 
 		return serverPage;
 	}

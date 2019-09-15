@@ -12,11 +12,13 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class EventUtil {
+public class EventCommands {
 
 	public static void addListener(EL element, EventListener listener, EventType eventType) {
 		THREAD_LOCAL.get().add(new ElementEvent(element, listener, eventType));
 	}
+	
+	
 
 	private static final ThreadLocal<List<ElementEvent>> THREAD_LOCAL = new ThreadLocal<>();
 

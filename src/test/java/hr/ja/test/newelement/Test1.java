@@ -1,7 +1,7 @@
 package hr.ja.test.newelement;
 
 import hr.ja.fr.elements.Button;
-import hr.ja.fr.elements.DataUtil;
+import hr.ja.fr.elements.ElementCommands;
 import hr.ja.fr.elements.Div;
 import hr.ja.fr.elements.EL;
 

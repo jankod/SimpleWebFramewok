@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import hr.ja.fr.events.EventUtil;
+import hr.ja.fr.events.EventCommands;
 import lombok.extern.slf4j.Slf4j;
 import spark.Request;
 import spark.Session;

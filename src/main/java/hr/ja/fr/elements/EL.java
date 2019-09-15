@@ -12,36 +12,50 @@ public class EL {
 	public EL(String tag) {
 		el = new Element(tag);
 		enshureId();
-		DataUtil.newEl(this);
+		ElementCommands.newEl(this);
 	}
 
 	public EL addClass(String className) {
-		DataUtil.addClass(this, className);
+		ElementCommands.addClass(this, className);
 		el.addClass(className);
 		return this;
 	}
 
 	public static void appendToBody(EL b) {
-		DataUtil.appendToBody(b);
+		ElementCommands.appendToBody(b);
 	}
 
 	public String id() {
 		return el.attr("id");
 	}
 
+	public EL html(String html) {
+		Element res = el.html(html);
+		ElementCommands.html(this, html);
+		return this;
+	}
+
 	public EL appendText(String text) {
-		DataUtil.appendText(this, text);
+		ElementCommands.appendText(this, text);
 		el.appendText(text);
 		return this;
 	}
 
-	public EL appendChild(EL child) {
-		DataUtil.appendChild(this, child);
-		el.appendChild(child.el);
+	public EL text(String text) {
+		ElementCommands.text(this, text);
+		el.text(text);
 		return this;
 	}
 
-
+	public EL appendChild(EL child) {
+		ElementCommands.appendChild(this, child);
+		el.appendChild(child.el);
+		return this;
+	}
+	
+	public void clear() {
+		el.children().remove();
+	}
 
 	private String enshureId() {
 		String id = el.attr("id");
@@ -51,7 +65,7 @@ public class EL {
 		}
 		return id;
 	}
-	
+
 	@Override
 	public String toString() {
 		return el.toString();
