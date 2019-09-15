@@ -1,13 +1,15 @@
 package hr.ja.fr;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
+import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import hr.ja.fr.events.EventCommands;
 import lombok.extern.slf4j.Slf4j;
 import spark.Request;
 import spark.Session;
@@ -39,6 +41,12 @@ public class WebUtil {
 			log.error(" ", e);
 			return "???";
 		}
+	}
+
+	public static String loadTemplate(Class<?> class1) throws IOException {
+		InputStream in = class1.getResourceAsStream(class1.getSimpleName()+".html");
+		String res = IOUtils.toString(in, StandardCharsets.UTF_8);
+		return res;
 	}
 
 }

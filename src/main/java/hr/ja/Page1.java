@@ -5,31 +5,38 @@ import hr.ja.fr.Route;
 import hr.ja.fr.elements.Button;
 import hr.ja.fr.elements.Div;
 import hr.ja.fr.elements.Window;
+import hr.ja.fr.elements.bs.BsButton;
+import hr.ja.fr.elements.bs.BsModal;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Route("/")
 class Page1 extends Page {
 
-	private String value = "prvo";
+	private int counter = 1;
+
+	BsModal modal;
 
 	public Page1() {
+		modal = new BsModal(new Div("Ja sam modal"));
 
-		Button button = new Button("ovo je button");
+		Button button = new BsButton("inctrement counter");
+
 		Div div = new Div("podaci");
 		div.html("<b>daj neki novi</b>");
-		button.addClickListener(e -> {
-			log.debug("click je bio: {} ", e.getSource());
 
-			Button b = new Button("Novi button");
-			div.appendChild(b);
-			b.addClickListener(event -> {
-				log.debug("click na novi button " + event.getSource());
-				Window.alert("Kliknuo na novi button " + event.getSource());
-				div.clear();
-			});
+		Div counterDiv = new Div(" Counter " + counter);
+
+		button.addClickListener(e -> {
+//			log.debug("click je bio: {} ", e.getSource());
+			modal.show();
+			
+			counter++;
+			counterDiv.text("Counter " + counter);
+
 		});
 
+		add(counterDiv);
 		add(div);
 		add(button);
 

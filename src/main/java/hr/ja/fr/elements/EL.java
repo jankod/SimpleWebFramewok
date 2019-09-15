@@ -30,7 +30,7 @@ public class EL {
 	}
 
 	public EL html(String html) {
-		Element res = el.html(html);
+		el.html(html);
 		ElementCommands.html(this, html);
 		return this;
 	}
@@ -53,11 +53,17 @@ public class EL {
 		return this;
 	}
 	
+	public void attr(String name, String value) {
+		el.attr(name, value);
+		ElementCommands.attr(this, name, value);
+	}
+
+	
 	public void clear() {
 		el.children().remove();
 	}
 
-	private String enshureId() {
+	protected String enshureId() {
 		String id = el.attr("id");
 		if (StringUtils.isEmpty(id)) {
 			id = idCounter++ + "";

@@ -11,7 +11,6 @@ class EL {
         let el = $(html);
         this.elements.set(elId, el);
         return el;
-        //return "EL";
     }
 
     /**
@@ -66,6 +65,17 @@ class EL {
     alert(msg) {
         alert(msg);
     }
+    attr(elId, name, value) {
+        this.getEl(elId).attr(name, value);
+    }
+
+    callJquery(elId, params) {
+        console.log("method name ", params);
+        //debugger;
+        //let methodName = params.shift();
+        this.getEl(elId)[params]();
+    }
+
 
     sendToServer(data, elementId, listenerId) {
         let self = this;
@@ -95,18 +105,12 @@ class EL {
 
     runCommands(commands) {
         commands.forEach(command => {
-            console.log("commands ", command);
+            console.log("command  ", command);
             let res = this[command.funcName].apply(this, command.args);
         });
     }
 }
 
-function runCommands2(commands) {
-    commands.forEach(command => {
-        console.log("event commands ", command);
-        let res = el[command.funcName].apply(el, command.args);
-    });
-}
 
 //let el = new EL();
 /*

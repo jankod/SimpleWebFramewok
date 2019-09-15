@@ -1,10 +1,12 @@
 package hr.ja.fr.elements;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import hr.ja.fr.commands.CommandJs;
 import hr.ja.fr.commands.DOMCommand;
+import hr.ja.fr.elements.bs.BsModal;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -52,6 +54,19 @@ public class ElementCommands {
 		// exec("text('{}', `{}`)", el.id(), text);
 		add(new DOMCommand("text", el.id(), text));
 	}
+
+	public static void attr(EL el, String name, String value) {
+		add(new DOMCommand("attr", el.id(), name, value));
+	}
+
+	public static void callJquery(EL el, String function, Object... params) {
+		ArrayList<Object> allParams = new ArrayList<>();
+		allParams.add(el.id());
+		allParams.add(function);
+		allParams.addAll(Arrays.asList(params));
+		add(new DOMCommand("callJquery", allParams.toArray()));
+	}
+
 	public static void html(EL el, String html) {
 		add(new DOMCommand("html", el.id(), html));
 	}
@@ -63,6 +78,5 @@ public class ElementCommands {
 	public static List<CommandJs> getCommands() {
 		return data.get();
 	}
-
 
 }
