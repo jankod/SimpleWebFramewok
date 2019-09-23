@@ -18,7 +18,6 @@ public class BsModal extends Div {
 			template = template.replace("${content}", content.toString());
 			this.el = el.html(template).children().first();
 			this.enshureId();
-//			ElementCommands.newEl(this);
 			
 		} catch (IOException e) {
 			log.error("", e);
@@ -28,7 +27,12 @@ public class BsModal extends Div {
 
 	public void show() {
 		ElementCommands.newEl(this);
-		ElementCommands.callJquery(this, "modal");
+		ElementCommands.callJquery(this, "modal", "1", "2", "tri");
+		ElementCommands.exec(this, "$('#"+id()+"').modal( 'hide' ).data( 'bs.modal', null );");
+		
+		// $('#45').modal( 'hide' ).data( 'bs.modal', null );
+
+		
 		// .modal(options);
 	}
 

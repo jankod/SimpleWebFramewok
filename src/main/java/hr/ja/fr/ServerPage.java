@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import hr.ja.fr.commands.CommandJs;
@@ -13,7 +12,6 @@ import hr.ja.fr.events.ButtonClickEvent;
 import hr.ja.fr.events.ButtonClickListener;
 import hr.ja.fr.events.ElementEvent;
 import hr.ja.fr.events.ElementEvent.EventType;
-import hr.ja.fr.events.EventListener;
 import hr.ja.fr.manager.PageEventManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,7 +57,7 @@ public class ServerPage implements Serializable {
 		return WebUtil.toJson(commands);
 	}
 
-	public void callEvenetListeners(String elementId, String listenerId, String body) {
+	public void callEventListeners(String elementId, String listenerId, String body) {
 		if (listeners == null) {
 			log.error("null je");
 			return;

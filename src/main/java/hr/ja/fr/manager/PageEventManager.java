@@ -1,8 +1,14 @@
 package hr.ja.fr.manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 
 import hr.ja.fr.ServerPage;
 import hr.ja.fr.ServerSession;
@@ -11,21 +17,19 @@ import hr.ja.fr.commands.CommandJs;
 import hr.ja.fr.commands.DOMCommand;
 import hr.ja.fr.elements.ElementCommands;
 import hr.ja.fr.events.ElementEvent;
-import hr.ja.fr.events.EventCommands;
 import hr.ja.fr.events.ElementEvent.EventType;
+import hr.ja.fr.events.EventCommands;
 import lombok.extern.slf4j.Slf4j;
-import spark.Request;
-import spark.Response;
 
 @Slf4j
 public class PageEventManager {
 
-	public String renderPageEvents(Request req, Response res) {
-		String pageId = req.headers("pageId");
-		String elementId = req.headers("elementId");
-		String listenerId = req.headers("listenerId");
+	public String renderPageEvents(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String pageId = req.getHeader("pageId");
+		String elementId = req.getHeader("elementId");
+		String listenerId = req.getHeader("listenerId");
 
-		String body = req.body();
+		String body = IOUtils.toString(req.getReader());
 //		log.debug("body {}", body);
 //		log.debug("Dobio ajax, pageId {} elementId {}", pageId, elementId);
 
@@ -34,12 +38,11 @@ public class PageEventManager {
 
 		ElementCommands.clear();
 		EventCommands.clear();
-		page.callEvenetListeners(elementId, listenerId, body);
+		page.callEventListeners(elementId, listenerId, body);
 		List<ElementEvent> newEvents = EventCommands.getEvents();
 		List<CommandJs> commands = newEvents.stream().map(PageEventManager::createCommand).collect(Collectors.toList());
 		List<CommandJs> commandsEvents = ElementCommands.getCommands();
 
-		
 		page.addEventListeners(newEvents);
 		ArrayList<CommandJs> result = new ArrayList<>();
 		result.addAll(commandsEvents);

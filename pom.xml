@@ -20,11 +20,18 @@
 			<version>1.12.1</version>
 		</dependency>
 
+
 		<dependency>
-			<groupId>com.sparkjava</groupId>
-			<artifactId>spark-core</artifactId>
-			<version>2.9.1</version>
+			<groupId>io.javalin</groupId>
+			<artifactId>javalin</artifactId>
+			<version>3.5.0</version>
 		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>com.sparkjava</groupId> -->
+		<!-- <artifactId>spark-core</artifactId> -->
+		<!-- <version>2.9.1</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -48,20 +55,37 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.8</version>
+			<version>1.18.10</version>
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.sparkjava</groupId>
-			<artifactId>spark-template-velocity</artifactId>
-			<version>2.7.1</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.sparkjava</groupId> -->
+		<!-- <artifactId>spark-template-velocity</artifactId> -->
+		<!-- <version>2.7.1</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>4.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>bootbox.js</artifactId>
+			<version>5.3.2</version>
 		</dependency>
 
 

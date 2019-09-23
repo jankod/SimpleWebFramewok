@@ -2,13 +2,9 @@ package hr.ja.fr.events;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.function.Supplier;
 
-import hr.ja.fr.Page;
 import hr.ja.fr.elements.EL;
 import hr.ja.fr.events.ElementEvent.EventType;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

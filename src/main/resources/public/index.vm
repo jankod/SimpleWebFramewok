@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="jquery-3.4.1.js"></script>
+
+    <script src="js/bootstrap.bundle.js"></script>
+
+    <!--     /webjars/name/version/file.ex -->
+    <script src="/webjars/bootbox.js/5.3.2/bootbox.js"></script>
+    <script src="/webjars/bootbox.js/5.3.2/bootbox.locales.js"></script>
+
+    <script src="app.js"></script>
+    <script type="application/javascript">
+        function getPageID() {
+            return "$pageId";
+        }
+
+
+        function getCommands() {
+            return $commandJs;
+        }
+
+    </script>
+
+
+</head>
+<body id="body">
+    $bodyHtml
+</body>
+<script type="text/javascript">
+
+
+    $(function () {
+        let e = new EL(getPageID());
+        console.log("Page id je: " + getPageID());
+        e.runCommands(getCommands());
+    });
+
+
+    /**
+     *
+     * String elementId;
+     EventType eventType;
+     String listenerId;
+     String html;
+     *  @param {Array.<{elementId: String, eventType: String, listenerId: String, html: String}>}  commands
+     */
+    function runCommands1(commands) {
+    }
+
+
+</script>
+
+</html>

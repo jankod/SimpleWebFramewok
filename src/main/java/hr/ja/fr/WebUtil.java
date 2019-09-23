@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -11,21 +14,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import spark.Request;
-import spark.Session;
+
 
 @Slf4j
 public class WebUtil {
 
-	public static ServerSession getSession(Request req) {
-		Session sparkSession = req.session(true);
+	public static ServerSession getSession(HttpServletRequest req) {
+		HttpSession sess = req.getSession(true);
 
-		if (sparkSession.attribute("ss") == null) {
+		if (sess.getAttribute("ss") == null) {
 			ServerSession m = new ServerSession();
-			sparkSession.attribute("ss", m);
+			sess.setAttribute("ss", m);
 		}
 
-		return sparkSession.attribute("ss");
+		return (ServerSession) sess.getAttribute("ss");
 
 	}
 
@@ -44,7 +46,7 @@ public class WebUtil {
 	}
 
 	public static String loadTemplate(Class<?> class1) throws IOException {
-		InputStream in = class1.getResourceAsStream(class1.getSimpleName()+".html");
+		InputStream in = class1.getResourceAsStream(class1.getSimpleName() + ".html");
 		String res = IOUtils.toString(in, StandardCharsets.UTF_8);
 		return res;
 	}

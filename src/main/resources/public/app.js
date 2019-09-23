@@ -22,8 +22,12 @@ class EL {
         let el = this.elements.get(elId);
         if (el === undefined) {
             let el = $("#" + elId);
-            if (el.length !== 1)
-                throw Error("Not find element ID: " + elId);
+            if (el.length !== 1) {
+                // not exist,
+                console.warn("Element " + elId + " not exist. yet...")
+                //throw Error("Not find element ID: " + elId);
+                return null; // $("#"+elId);
+            }
 
             return el;
         }
@@ -51,31 +55,55 @@ class EL {
     }
 
     setClickEvent(elId, listenerId) {
-        console.log("Command setClickEvent", elId, listenerId);
+       // console.log("Command setClickEvent", elId, listenerId);
         let handler = () => {
-            // console.log("this", this);
+            console.log("event", elId + " " + listenerId);
             this.sendToServer({'event': 'event neki'}, elId, listenerId);
         };
-        $("#" + elId).on('click', handler);
+
+        this.onEvent('click', elId, handler);
+    }
+
+    onEvent(eventName, elId, handler) {
+        let el = this.getEl(elId);
+        if (el == null) {
+            $('body').on(eventName, '#' + elId, handler);
+        } else {
+            el.on('click', handler);
+        }
     }
 
     html(elId, html) {
         this.getEl(elId).html(html);
     }
+
     alert(msg) {
         alert(msg);
     }
+
+    evalExec(elId, exec) {
+        eval(exec);
+    }
+
     attr(elId, name, value) {
         this.getEl(elId).attr(name, value);
     }
 
-    callJquery(elId, params) {
-        console.log("method name ", params);
-        //debugger;
-        //let methodName = params.shift();
-        this.getEl(elId)[params]();
+    callJquery(elId, ...params) {
+       console.log("params ", params);
+        this.getEl(elId)[params[0]]();
     }
 
+    bootbox_alert(msg) {
+        bootbox.alert(msg);
+    }
+    bootbox_alert(title, msg) {
+        console.log("title  "+title + " msg "+ msg);
+        bootbox.alert({
+            message: msg,
+            title: title
+        });
+    }
 
     sendToServer(data, elementId, listenerId) {
         let self = this;
@@ -110,12 +138,3 @@ class EL {
         });
     }
 }
-
-
-//let el = new EL();
-/*
-let e = new EL();
-let args = ['2', '<p>'];
-let res = e['createElement'].apply(args);
-console.log(res);
-*/

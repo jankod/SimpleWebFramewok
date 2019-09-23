@@ -1,32 +1,33 @@
 package hr.ja.fr.manager;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-
-import hr.ja.fr.events.ElementEvent;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 
 import hr.ja.fr.Page;
 import hr.ja.fr.ServerPage;
 import hr.ja.fr.ServerSession;
 import hr.ja.fr.WebUtil;
-import hr.ja.fr.elements.ElementCommands;
 import hr.ja.fr.events.EventCommands;
 import lombok.extern.slf4j.Slf4j;
-import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
-import spark.template.velocity.VelocityTemplateEngine;
 
 @Slf4j
 public class PageRenderManager {
 
-	private static VelocityTemplateEngine velo = new VelocityTemplateEngine();
 
-	public String renderPage(Class<? extends Page> pageClass, Request req, Response res) {
+
+	public String renderPage(Class<? extends Page> pageClass, HttpServletRequest req, HttpServletResponse res) {
 		try {
 			ServerSession sess = WebUtil.getSession(req);
 
@@ -40,7 +41,7 @@ public class PageRenderManager {
 
 			model.put("commandJs", page.createCommandsJs());
 			model.put("bodyHtml", renderPageBody(page.getPage()));
-			return render(model, "index.vm");
+			return render(model, "OLD index.vm");
 
 		} catch (Exception e) {
 			log.error("", e);
@@ -73,9 +74,20 @@ public class PageRenderManager {
 		return serverPage;
 	}
 
-	public String render(Map<String, Object> model, String templatePath) {
+	public String render(Map<String, Object> model, String templatePath) throws IOException {
 
-		return velo.render(new ModelAndView(model, templatePath));
+		String r = "/public/index.vm";
+		URL resource = PageRenderManager.class.getResource(r);
+		if(resource == null) {
+			log.error("canot find {}", r);
+		}
+		
+		String res = IOUtils.toString(resource, StandardCharsets.UTF_8);
+		Set<Entry<String, Object>> entrySet = model.entrySet();
+		for (Entry<String, Object> entry : entrySet) {
+			res = res.replace("$"+entry.getKey(), entry.getValue().toString());
+		}
+		return res;
 	}
 
 }

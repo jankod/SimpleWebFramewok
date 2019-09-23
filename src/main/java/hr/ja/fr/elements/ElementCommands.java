@@ -6,7 +6,6 @@ import java.util.List;
 
 import hr.ja.fr.commands.CommandJs;
 import hr.ja.fr.commands.DOMCommand;
-import hr.ja.fr.elements.bs.BsModal;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -71,12 +70,16 @@ public class ElementCommands {
 		add(new DOMCommand("html", el.id(), html));
 	}
 
-	private static void add(CommandJs c) {
+	public static void add(CommandJs c) {
 		data.get().add(c);
 	}
 
 	public static List<CommandJs> getCommands() {
 		return data.get();
+	}
+
+	public static void exec(EL el, String exec) {
+		add(new DOMCommand("evalExec", el.id(), exec));
 	}
 
 }
