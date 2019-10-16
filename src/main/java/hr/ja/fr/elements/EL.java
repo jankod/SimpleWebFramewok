@@ -17,9 +17,11 @@ public class EL {
 
 	public EL(String tag) {
 		el = new Element(tag);
-		enshureId();
+		ensureId();
 		ElementCommands.newEl(this);
 	}
+
+
 	
 	
 
@@ -77,7 +79,7 @@ public class EL {
 		el.children().remove();
 	}
 
-	protected String enshureId() {
+	protected String ensureId() {
 		String id = el.attr("id");
 		if (StringUtils.isEmpty(id)) {
 			id = idCounter++ + "";

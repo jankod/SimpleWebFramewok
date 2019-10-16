@@ -20,31 +20,34 @@ class DemoPage extends Page {
 
 	Button btn = new BsButton("Ja sam modal");
 	Button button = new BsButton("inctrement counter");
+
 	public DemoPage() {
-		btn.addClickListener(l-> {
-			log.debug("ja sam but from dialog "+ btn.hashCode());
+		btn.addClickListener(l -> {
+			log.debug("ja sam but from dialog " + btn.hashCode());
 			Window.alert("ja sam iz modala!!!");
 		});
 		modal = new BsModal(btn);
-
 
 		Div div = new Div("podaci 22");
 		div.html("<b>evo ga niuje bio pa zasto nije bio</b>");
 
 		Div counterDiv = new Div(" Counter " + counter);
 
+		
+		
 		button.addClickListener(e -> {
 //			log.debug("click je bio: {} ", e.getSource());
 //			modal.show();
-			
+
 			counter++;
 			counterDiv.text("Counter " + counter);
 			Bootbox.alert("Ovo je naslov neki", "Ovo je poruka");
+			Bootbox.alert("Ovo je samo poruka");
 
 		});
-		button.addClickListener(l-> {
-			log.debug("button name "+ button.getText());
-			button.text("novo "+ org.apache.commons.lang3.RandomStringUtils.randomNumeric(4));
+		button.addClickListener(l -> {
+//			log.debug("button name " + button.getText());
+//			button.text("novo " + org.apache.commons.lang3.RandomStringUtils.randomNumeric(4));
 		});
 
 		add(counterDiv);

@@ -8,7 +8,6 @@ public class BsButton extends Button{
 		super(text);
 		this.el.attr("type", "button");
 		this.el.addClass("btn btn-outline-primary");
-		
 	}
 
 }

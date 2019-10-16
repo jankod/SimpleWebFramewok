@@ -101,7 +101,8 @@ class EL {
         console.log("title  "+title + " msg "+ msg);
         bootbox.alert({
             message: msg,
-            title: title
+            title: title,
+            backdrop: true
         });
     }
 

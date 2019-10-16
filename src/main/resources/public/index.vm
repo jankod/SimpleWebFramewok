@@ -39,19 +39,6 @@
         e.runCommands(getCommands());
     });
 
-
-    /**
-     *
-     * String elementId;
-     EventType eventType;
-     String listenerId;
-     String html;
-     *  @param {Array.<{elementId: String, eventType: String, listenerId: String, html: String}>}  commands
-     */
-    function runCommands1(commands) {
-    }
-
-
 </script>
 
 </html>

@@ -17,7 +17,7 @@ public class BsModal extends Div {
 			String template = WebUtil.loadTemplate(getClass());
 			template = template.replace("${content}", content.toString());
 			this.el = el.html(template).children().first();
-			this.enshureId();
+			this.ensureId();
 			
 		} catch (IOException e) {
 			log.error("", e);
