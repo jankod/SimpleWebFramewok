@@ -1,4 +1,4 @@
-package hr.ja.javalin;
+package hr.ja.fr;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,6 @@ import hr.ja.fr.Route;
 import hr.ja.fr.manager.PageEventManager;
 import hr.ja.fr.manager.PageRenderManager;
 import io.javalin.Javalin;
-import io.javalin.plugin.rendering.template.JavalinVelocity;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,7 +26,7 @@ public class WebFrameworkJavalin {
 
 			Javalin app = Javalin
 
-					.create(c->{
+					.create(c -> {
 						c.enableWebjars();
 						c.addStaticFiles("/public");
 						c.enableDevLogging();

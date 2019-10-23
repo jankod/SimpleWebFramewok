@@ -72,7 +72,8 @@ public class ElementCommands {
     }
 
     public static void exec(EL el, String exec) {
-        add(new DOMCommand("evalExec", el.id(), exec));
+        add(new DOMCommand("evalExec", el.id(), exec)
+        );
     }
 
 }

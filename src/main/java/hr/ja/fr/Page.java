@@ -18,18 +18,12 @@ public abstract class Page {
 	private String pageId = RandomStringUtils.randomAlphabetic(6);
 
 	@Getter()
-	private List<EL> tags = new ArrayList<EL>();
+	private List<EL> elements = new ArrayList<EL>();
 
 	public void add(EL element) {
-		tags.add(element);
-		element.setAttach(true);
-		
+		elements.add(element);
+		//element.setAttach(true);
 		ElementCommands.appendToBody(element);
-	}
-	
-	
-	protected void init() {
-		Jsoup.parse("");
 	}
 
 }

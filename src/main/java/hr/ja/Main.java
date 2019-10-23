@@ -1,6 +1,6 @@
 package hr.ja;
 
-import hr.ja.javalin.WebFrameworkJavalin;
+import hr.ja.fr.WebFrameworkJavalin;
 
 public class Main {
 

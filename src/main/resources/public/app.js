@@ -90,7 +90,7 @@ class EL {
     }
 
     callJquery(elId, ...params) {
-       console.log("params ", params);
+       console.log("params "+elId, params);
         this.getEl(elId)[params[0]]();
     }
 
@@ -98,7 +98,7 @@ class EL {
         bootbox.alert(msg);
     }
     bootbox_alert(title, msg) {
-        console.log("title  "+title + " msg "+ msg);
+        console.log("title  "+title + " msg '"+ typeof msg + "'");
         bootbox.alert({
             message: msg,
             title: title,

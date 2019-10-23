@@ -9,11 +9,4 @@ public class Button extends EL implements ClickNotifier<Button> {
 		appendText(value);
 	}
 
-	
-	
-//	@Override
-//	public String toString() {
-//		return super.toString();
-//	}
-
 }

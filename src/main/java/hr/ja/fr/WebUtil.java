@@ -19,65 +19,49 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ClassPathUtils;
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.wicket.core.util.resource.ClassPathResourceFinder;
-import org.apache.wicket.util.resource.IResourceStream;
 
 @Slf4j
 public class WebUtil {
 
-	public static ServerSession getSession(HttpServletRequest req) {
-		HttpSession sess = req.getSession(true);
+    public static ServerSession getSession(HttpServletRequest req) {
+        HttpSession sess = req.getSession(true);
 
-		if (sess.getAttribute("ss") == null) {
-			ServerSession m = new ServerSession();
-			sess.setAttribute("ss", m);
-		}
+        if (sess.getAttribute("ss") == null) {
+            ServerSession m = new ServerSession();
+            sess.setAttribute("ss", m);
+        }
 
-		return (ServerSession) sess.getAttribute("ss");
+        return (ServerSession) sess.getAttribute("ss");
 
-	}
+    }
 
-	private static ObjectMapper mapper = new ObjectMapper();
+    private static ObjectMapper mapper = new ObjectMapper();
 
-	static {
-		mapper.setSerializationInclusion(Include.NON_NULL);
-	}
+    static {
+        mapper.setSerializationInclusion(Include.NON_NULL);
+    }
 
-	public static String toJson(Object o) {
-		try {
-			return mapper.writeValueAsString(o);
-		} catch (JsonProcessingException e) {
-			log.error(" ", e);
-			return "???";
-		}
-	}
+    public static String toJson(Object o) {
+        try {
+            return mapper.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            log.error(" ", e);
+            return "???";
+        }
+    }
 
-	public static String loadTemplate(Class<?> class1) throws IOException {
-		String name = class1.getName().replace('.', '/') + ".html";
-		log.debug("Try {} {}", class1, name);
-		InputStream in = ClassLoader.getSystemResourceAsStream(name);
-		log.debug("nasao {}", in);
+    public static String loadTemplate(Class<?> class1) throws IOException {
+        String name = class1.getName().replace('.', '/') + ".html";
+        InputStream in = ClassLoader.getSystemResourceAsStream(name);
+        if (in == null) {
+            in = class1.getResourceAsStream(name);
+        }
 
-		if (in == null) {
-			ClassPathResourceFinder finder = new ClassPathResourceFinder(null);
-			IResourceStream iResourceStream = finder.find(class1, name);
-			log.debug("nasao {}", iResourceStream);
-			in = class1.getResourceAsStream(name);
-
-//			String full = ClassPathUtils.toFullyQualifiedPath(class1, class1.getSimpleName() + ".html");
-//			log.debug("full {}", full);
-			if (in == null) {
-				in = ClassLoader.getSystemResourceAsStream(name);
-				log.debug("nasao {}", in);
-
-//            in =  ClassLoader.getSystemClassLoader().getResourceAsStream("." + name);
-				if (in == null) {
-					throw new IOException("Can not load template " + name);
-				}
-			}
-		}
-		String res = IOUtils.toString(in, StandardCharsets.UTF_8);
-		return res;
-	}
+        if (in == null) {
+            throw new IOException("Can not load template " + name);
+        }
+        String res = IOUtils.toString(in, StandardCharsets.UTF_8);
+        return res;
+    }
 
 }

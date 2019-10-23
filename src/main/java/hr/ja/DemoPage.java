@@ -8,52 +8,35 @@ import hr.ja.fr.elements.Window;
 import hr.ja.fr.elements.bs.Bootbox;
 import hr.ja.fr.elements.bs.BsButton;
 import hr.ja.fr.elements.bs.BsModal;
+import hr.ja.fr.events.ButtonClickListener;
+import hr.ja.fr.events.ClickEvent;
+import hr.ja.fr.layout.LayoutPage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Route("/")
-class DemoPage extends Page {
+@LayoutPage(DemoLayout.class)
+public class DemoPage extends Page {
 
-	private int counter = 1;
+    BsModal modal;
 
-	BsModal modal;
+    public DemoPage() {
 
-	Button btn = new BsButton("Ja sam modal");
-	Button button = new BsButton("inctrement counter");
+        modal = new BsModal(new Div("Ovo jew modal"));
 
-	public DemoPage() {
-		btn.addClickListener(l -> {
-			log.debug("ja sam but from dialog " + btn.hashCode());
-			Window.alert("ja sam iz modala!!!");
-		});
-		modal = new BsModal(btn);
+        BsButton btn = new BsButton("show modal");
+        btn.addClickListener(new ButtonClickListener<Button>() {
 
-		Div div = new Div("podaci 22");
-		div.html("<b>evo ga niuje bio pa zasto nije bio</b>");
+            @Override
+            public void onClick(ClickEvent<Button> event)
+			{
 
-		Div counterDiv = new Div(" Counter " + counter);
+				log.debug("demo");
+                modal.show();
+            }
+        });
+        add(btn);
 
-		
-		
-		button.addClickListener(e -> {
-//			log.debug("click je bio: {} ", e.getSource());
-//			modal.show();
-
-			counter++;
-			counterDiv.text("Counter " + counter);
-			Bootbox.alert("Ovo je naslov neki", "Ovo je poruka");
-			Bootbox.alert("Ovo je samo poruka");
-
-		});
-		button.addClickListener(l -> {
-//			log.debug("button name " + button.getText());
-//			button.text("novo " + org.apache.commons.lang3.RandomStringUtils.randomNumeric(4));
-		});
-
-		add(counterDiv);
-		add(div);
-		add(button);
-
-	}
+    }
 
 }

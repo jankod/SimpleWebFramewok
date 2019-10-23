@@ -13,6 +13,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hr.ja.fr.layout.Layout;
+import hr.ja.fr.layout.LayoutPage;
 import org.apache.commons.io.IOUtils;
 
 import hr.ja.fr.Page;
@@ -51,7 +53,7 @@ public class PageRenderManager {
 
 	private String renderPageBody(Page page) {
 		StringBuilder b = new StringBuilder();
-		page.getTags().forEach(e -> b.append(e.toString()));
+		page.getElements().forEach(e -> b.append(e.toString()));
 		return b.toString();
 	}
 
@@ -59,8 +61,9 @@ public class PageRenderManager {
 		Constructor<? extends Page> c = p.getConstructor();
 		c.setAccessible(true);
 		Page instance = null;
-		
-		
+
+		LayoutPage layout = p.getDeclaredAnnotation(LayoutPage.class);
+//		log.debug("found layout {}", layout);
 		EventCommands.clear();
 		try {
 			instance = c.newInstance();
