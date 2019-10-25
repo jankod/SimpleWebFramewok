@@ -1,7 +1,9 @@
 package hr.ja.fr.components;
 
-public class Component {
+import hr.ja.fr.elements.EL;
 
-	
+public abstract class Component {
+
+	   public abstract EL getElement();
 	
 }

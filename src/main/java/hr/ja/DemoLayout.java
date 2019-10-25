@@ -5,7 +5,6 @@ import hr.ja.fr.layout.Layout;
 
 public class DemoLayout implements Layout {
 
-
     @Override
     public EL getParent() {
         return null;
